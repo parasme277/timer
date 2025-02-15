@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #timer {
+            font-size: 5em;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        #footer {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div id="timer">00:00:00</div>
+    <div class="buttons">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+    </div>
+    <div id="footer">BY : PARASME</div>
+    <script>
+        let timerInterval;
+        let elapsedTime = 0;
+
+        function startTimer() {
+            if (timerInterval) return;
+
+            let startTime = Date.now() - elapsedTime;
+
+            timerInterval = setInterval(() => {
+                elapsedTime = Date.now() - startTime;
+                let time = new Date(elapsedTime);
+
+                let hours = String(time.getUTCHours()).padStart(2, '0');
+                let minutes = String(time.getUTCMinutes()).padStart(2, '0');
+                let seconds = String(time.getUTCSeconds()).padStart(2, '0');
+
+                document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+    </script>
+</body>
+</html>
